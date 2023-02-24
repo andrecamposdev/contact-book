@@ -1,0 +1,50 @@
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import { Link } from 'react-router-dom';
+
+export const Menu = () => {
+  return (
+    <Navbar bg="dark" variant="dark">
+      <Container>
+        <Navbar.Brand href="#home">
+          <Link to="/" className="lnk">
+            Agenda 📖
+          </Link>
+        </Navbar.Brand>
+        <Nav className="ml-auto">
+          <Nav.Link href="#home">
+            <Link to="/" className="lnk">
+              Home
+            </Link>
+          </Nav.Link>
+          <Nav.Link href="#about">
+            <Link to="/about" className="lnk">
+              About
+            </Link>
+          </Nav.Link>
+          <Nav.Link href="#agenda">
+            <Link to="/agenda" className="lnk">
+              Agenda
+            </Link>
+          </Nav.Link>
+          <Nav.Link href="#contato">
+            <Link to="/contact" className="lnk">
+              Criar contato
+            </Link>
+          </Nav.Link>
+          <Nav.Link href="#teste">
+            <Link to="/teste" className="lnk">
+              teste
+            </Link>
+          </Nav.Link>
+          <Nav.Link href="#login">
+            <Link to="/login" className="lnk">
+              Login
+            </Link>
+          </Nav.Link>
+        </Nav>
+      </Container>
+    </Navbar>
+  );
+};

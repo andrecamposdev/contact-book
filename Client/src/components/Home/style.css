@@ -1,0 +1,8 @@
+.lnk {
+  text-decoration: none;
+  color: inherit;
+}
+.lnk:hover, .lnk:active {
+  color: inherit;
+  text-decoration: none;
+}
