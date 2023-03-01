@@ -43,6 +43,11 @@ export const Menu = () => {
               Cadastro
             </Link>
           </Nav.Link>
+          <Nav.Link href="#logout">
+            <Link to="/logout" className="lnk">
+              Logout
+            </Link>
+          </Nav.Link>
         </Nav>
       </Container>
     </Navbar>

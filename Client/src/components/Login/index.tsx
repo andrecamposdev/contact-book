@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 async function login(email: string, password: string): Promise<number> {
   // Envie uma solicitação para o servidor e obtenha o ID do usuário
@@ -19,16 +21,10 @@ async function login(email: string, password: string): Promise<number> {
   return userId;
 }
 
-function logout() {
-  // Remova o ID do usuário do localStorage
-  localStorage.removeItem('userId');
-  localStorage.removeItem('token');
-  console.log('logout efetuado');
-}
 export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   async function handleLogin(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -37,18 +33,13 @@ export const Login = () => {
       const userId = await login(email, password);
       console.log(userId);
       localStorage.setItem('userId', userId.toString());
-      console.log('loginnn');
+      toast.success('Login efetuado com sucesso.');
+      navigate('/agenda');
     } catch (error) {
       console.log(error);
-      setError('Falha ao fazer login. Verifique suas credenciais.');
+      toast.error('Falha ao fazer login. Verifique suas credenciais.');
     }
   }
-
-  function handleLogout() {
-    logout();
-  }
-
-  const userId = localStorage.getItem('userId');
 
   return (
     <div className="container">
@@ -86,10 +77,7 @@ export const Login = () => {
                 <Button variant="primary" type="submit">
                   Fazer login
                 </Button>
-                <Button onClick={handleLogout}>logout</Button>
               </Form>
-              <p>Bem-vindo, usuário {userId}!</p>
-              <p>{error}</p>
             </div>
           </div>
         </div>
