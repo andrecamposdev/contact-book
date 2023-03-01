@@ -11,7 +11,7 @@ import { Home } from './components/Home';
 import { Login } from './components/Login';
 import { Menu } from './components/Menu';
 import { NotFound } from './components/NotFound';
-import { Teste } from './components/teste';
+import { Signup } from './components/Signup';
 
 function App() {
   return (
@@ -23,8 +23,8 @@ function App() {
           <Route path="/about" element={<About />}></Route>
           <Route path="/agenda" element={<Agenda />}></Route>
           <Route path="/contact" element={<Contact />}></Route>
+          <Route path="/signup" element={<Signup />}></Route>
           <Route path="/login" element={<Login />}></Route>
-          <Route path="/teste" element={<Teste />}></Route>
           <Route path="/*" element={<NotFound />}></Route>
         </Routes>
       </BrowserRouter>

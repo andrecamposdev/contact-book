@@ -33,14 +33,14 @@ export const Menu = () => {
               Criar contato
             </Link>
           </Nav.Link>
-          <Nav.Link href="#teste">
-            <Link to="/teste" className="lnk">
-              teste
-            </Link>
-          </Nav.Link>
           <Nav.Link href="#login">
             <Link to="/login" className="lnk">
               Login
+            </Link>
+          </Nav.Link>
+          <Nav.Link href="#singup">
+            <Link to="/signup" className="lnk">
+              Cadastro
             </Link>
           </Nav.Link>
         </Nav>
