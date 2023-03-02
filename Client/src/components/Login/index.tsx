@@ -5,6 +5,10 @@ import Form from 'react-bootstrap/Form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
+interface LoginProps {
+  onLogin: () => void;
+}
+
 async function login(email: string, password: string): Promise<number> {
   // Envie uma solicitação para o servidor e obtenha o ID do usuário
   const response = await axios.post('http://localhost:3000/login', { email, password });
@@ -21,7 +25,7 @@ async function login(email: string, password: string): Promise<number> {
   return userId;
 }
 
-export const Login = () => {
+export const Login = (props: LoginProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -33,6 +37,7 @@ export const Login = () => {
       const userId = await login(email, password);
       console.log(userId);
       localStorage.setItem('userId', userId.toString());
+      props.onLogin();
       toast.success('Login efetuado com sucesso.');
       navigate('/agenda');
     } catch (error) {

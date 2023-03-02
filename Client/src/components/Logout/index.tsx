@@ -2,6 +2,10 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
+interface LogoutProps {
+  onLogout: () => void;
+}
+
 function logout() {
   // Remova o ID do usuário do localStorage
   localStorage.removeItem('userId');
@@ -9,11 +13,12 @@ function logout() {
   console.log('logout efetuado');
   toast.success('Logout efetuado com sucesso.');
 }
-export const Logout = () => {
+export const Logout = (props: LogoutProps) => {
   const navigate = useNavigate();
 
   useEffect(() => {
     logout();
+    props.onLogout();
     navigate('/');
   }, [navigate]);
   return (

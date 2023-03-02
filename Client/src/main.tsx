@@ -1,7 +1,7 @@
 import './index.css';
 import 'react-toastify/dist/ReactToastify.css';
 
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
@@ -17,18 +17,27 @@ import { NotFound } from './components/NotFound';
 import { Signup } from './components/Signup';
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(isUserLoggedIn());
+
+  function handleLogin() {
+    setIsLoggedIn(true);
+  }
+
+  function handleLogout() {
+    setIsLoggedIn(false);
+  }
   return (
     <React.StrictMode>
       <BrowserRouter>
-        <Menu />
+        <Menu isLoggedIn={isLoggedIn} />
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/about" element={<About />}></Route>
           <Route path="/agenda" element={<Agenda />}></Route>
           <Route path="/contact" element={<Contact />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/logout" element={<Logout />}></Route>
+          <Route path="/login" element={<Login onLogin={handleLogin} />}></Route>
+          <Route path="/logout" element={<Logout onLogout={handleLogout} />}></Route>
           <Route path="/*" element={<NotFound />}></Route>
         </Routes>
       </BrowserRouter>
@@ -36,4 +45,10 @@ function App() {
     </React.StrictMode>
   );
 }
+
+function isUserLoggedIn() {
+  const token = localStorage.getItem('token');
+  return !!token;
+}
+
 ReactDOM.render(<App />, document.getElementById('root'));

@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { toast } from 'react-toastify';
 
 export const Contact = () => {
   const userId = localStorage.getItem('userId');
@@ -36,11 +37,11 @@ export const Contact = () => {
       )
       .then((res) => {
         console.log(res.data);
-        alert('Contato criado com sucesso');
+        toast.success('Contato criado com sucesso');
       })
       .catch((err) => {
         console.error(err);
-        alert('Ocorreu um erro ao criar seu contato');
+        toast.error('Ocorreu um erro ao criar seu contato');
       });
   };
   return (
