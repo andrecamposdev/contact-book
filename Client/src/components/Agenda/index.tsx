@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
+import { Link } from 'react-router-dom';
 
 interface DataObject {
   id: number;
@@ -80,7 +81,11 @@ export const Agenda = () => {
                         <td>{item.first_name}</td>
                         <td>{item.last_name}</td>
                         <td>{item.telephone}</td>
-                        <td>{new Date(item.birthday).toLocaleDateString()}</td>
+                        <td>
+                          {new Date(item.birthday).toLocaleDateString('pt-BR', {
+                            timeZone: 'UTC',
+                          })}
+                        </td>
                         <td>{item.address}</td>
                         <td>{item.email}</td>
                         <td>
@@ -97,6 +102,11 @@ export const Agenda = () => {
                   </tbody>
                 </Table>
               </div>
+              <Button variant="primary">
+                <Link to="/contact" className="lnk">
+                  Novo contato
+                </Link>
+              </Button>
             </div>
           </div>
         </div>

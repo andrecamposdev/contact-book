@@ -51,7 +51,7 @@ export const Login = (props: LoginProps) => {
       <div className="row justify-content-center">
         <div className="col-lg-8 my-3">
           <h1 className="text-center my-3">Login</h1>
-          <p className="text-center lead">Faça login ou crie sua conta</p>
+          <p className="text-center lead">Faça seu login</p>
           <div className="row">
             <div className="col-lg mx-3 my-3">
               <h4>Faça seu login</h4>

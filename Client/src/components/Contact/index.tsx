@@ -96,7 +96,7 @@ export const Contact = () => {
                 <Form.Group className="mb-3">
                   <Form.Label>Data de nascimento</Form.Label>
                   <Form.Control
-                    type="text"
+                    type="date"
                     id="birthday"
                     value={birthday}
                     onChange={(e) => setBirthday(e.target.value)}
