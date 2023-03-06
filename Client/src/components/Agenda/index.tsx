@@ -26,7 +26,7 @@ export const Agenda = () => {
     const confirmDelete = window.confirm('Tem certeza que quer excluir este contato?');
     if (confirmDelete) {
       try {
-        await axios.delete(`http://localhost:3000/contacts/${id}`);
+        await axios.delete(`${import.meta.env.VITE_REACT_API_URL}/contacts/${id}`);
         setData(data.filter((item) => item.id !== id));
       } catch (error) {
         console.error(error);
@@ -38,7 +38,7 @@ export const Agenda = () => {
     const fetchData = async () => {
       try {
         const result = await axios.get<ResponseData>(
-          `http://localhost:3000/contacts/user/${userId}`,
+          `${import.meta.env.VITE_REACT_API_URL}/contacts/user/${userId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

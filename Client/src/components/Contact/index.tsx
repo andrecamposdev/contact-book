@@ -19,7 +19,7 @@ export const Contact = () => {
     e.preventDefault();
     axios
       .post(
-        'http://localhost:3000/contacts',
+        `${import.meta.env.VITE_REACT_API_URL}/contacts`,
         {
           first_name,
           last_name,

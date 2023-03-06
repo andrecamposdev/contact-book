@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { toast } from 'react-toastify';
 
 export const Signup = () => {
   const [email, setEmail] = useState('');
@@ -10,14 +11,14 @@ export const Signup = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     axios
-      .post('http://localhost:3000/users', { email, password })
+      .post(`${import.meta.env.VITE_REACT_API_URL}/users`, { email, password })
       .then((res) => {
         console.log(res.data);
-        alert('Conta criada com sucesso');
+        toast.success('Conta criada com sucesso');
       })
       .catch((err) => {
         console.error(err);
-        alert('Ocorreu um erro ao criar sua conta');
+        toast.error('Ocorreu um erro ao criar sua conta');
       });
   };
   return (

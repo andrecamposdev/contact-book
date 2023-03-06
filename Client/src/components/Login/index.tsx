@@ -11,7 +11,10 @@ interface LoginProps {
 
 async function login(email: string, password: string): Promise<number> {
   // Envie uma solicitação para o servidor e obtenha o ID do usuário
-  const response = await axios.post('http://localhost:3000/login', { email, password });
+  const response = await axios.post(`${import.meta.env.VITE_REACT_API_URL}/login`, {
+    email,
+    password,
+  });
   console.log(response.data);
   const authorizationString = response.data.cookie[0];
   const startIndex = authorizationString.indexOf('=') + 1;
