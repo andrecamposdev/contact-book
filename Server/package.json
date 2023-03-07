@@ -1,5 +1,5 @@
 {
-  "name": "project name",
+  "name": "contactbook",
   "version": "0.0.0",
   "description": "TypeScript + TypeORM + PostgreSQL + Express API Server",
   "author": "",
