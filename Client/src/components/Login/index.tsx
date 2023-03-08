@@ -15,16 +15,13 @@ async function login(email: string, password: string): Promise<number> {
     email,
     password,
   });
-  console.log(response.data);
   const authorizationString = response.data.cookie[0];
   const startIndex = authorizationString.indexOf('=') + 1;
   const endIndex = authorizationString.indexOf(';');
 
   const token = authorizationString.substring(startIndex, endIndex);
-  console.log(token);
   localStorage.setItem('token', token);
   const userId = response.data.data.id;
-  console.log(userId);
   return userId;
 }
 
@@ -35,16 +32,14 @@ export const Login = (props: LoginProps) => {
 
   async function handleLogin(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log('oii');
     try {
       const userId = await login(email, password);
-      console.log(userId);
       localStorage.setItem('userId', userId.toString());
       props.onLogin();
       toast.success('Login efetuado com sucesso.');
       navigate('/agenda');
     } catch (error) {
-      console.log(error);
+      console.error(error);
       toast.error('Falha ao fazer login. Verifique suas credenciais.');
     }
   }

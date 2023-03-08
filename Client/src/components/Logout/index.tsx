@@ -10,7 +10,6 @@ function logout() {
   // Remova o ID do usuário do localStorage
   localStorage.removeItem('userId');
   localStorage.removeItem('token');
-  console.log('logout efetuado');
   toast.success('Logout efetuado com sucesso.');
 }
 export const Logout = (props: LogoutProps) => {

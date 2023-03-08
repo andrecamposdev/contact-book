@@ -9,7 +9,6 @@ interface NavbarProps {
 
 export const Menu = (props: NavbarProps) => {
   const { isLoggedIn } = props;
-  console.log(isLoggedIn);
   return (
     <Navbar bg="dark" variant="dark">
       <Container>
