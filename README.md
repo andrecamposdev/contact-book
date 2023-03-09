@@ -1,2 +1,2 @@
 # contact-book
-A contact book app made with Typescript, React in the frontend and Node in the backend
+A contact book with a login system that saves contacts in a database. This is a project made using TypeScript, ReactJs in the Frontend, a NodeJs API with Express and TypeORM in the Backend and a PostgreSQL database.
