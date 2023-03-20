@@ -2,32 +2,39 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-export const Contact = () => {
+export const EditContact = () => {
   const userId = localStorage.getItem('userId');
   const token = localStorage.getItem('token');
-  const [first_name, setFirstName] = useState('');
-  const [last_name, setLastName] = useState('');
-  const [telephone, setTelephone] = useState('');
-  const [birthday, setBirthday] = useState('');
-  const [address, setAddress] = useState('');
-  const [email, setEmail] = useState('');
   const [user_id] = useState(Number(userId));
+
+  const location = useLocation();
+  const { contact } = location.state;
+
+  const [formData, setFormData] = useState({
+    id: contact.id,
+    first_name: contact.first_name,
+    last_name: contact.last_name,
+    telephone: contact.telephone,
+    birthday: contact.birthday,
+    address: contact.address,
+    email: contact.email,
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     axios
-      .post(
-        `${import.meta.env.VITE_REACT_API_URL}/contacts`,
+      .put(
+        `${import.meta.env.VITE_REACT_API_URL}/contacts/${formData.id}`,
         {
-          first_name,
-          last_name,
-          telephone,
-          birthday,
-          address,
-          email,
+          first_name: formData.first_name,
+          last_name: formData.last_name,
+          telephone: formData.telephone,
+          birthday: formData.birthday,
+          address: formData.address,
+          email: formData.email,
           user_id,
         },
         {
@@ -38,32 +45,34 @@ export const Contact = () => {
       )
       .then((res) => {
         console.log(res.data);
-        toast.success('Contato criado com sucesso');
+        toast.success('Contato editado com sucesso');
       })
       .catch((err) => {
         console.error(err);
-        toast.error('Ocorreu um erro ao criar seu contato');
+        toast.error('Ocorreu um erro ao editar seu contato');
       });
   };
   return (
     <div className="container">
       <div className="row justify-content-center">
         <div className="col-lg-8 my-3">
-          <h1 className="text-center my-3">Novo contato</h1>
+          <h1 className="text-center my-3">Editar contato</h1>
           <div className="row">
             <div className="col-lg mx-3 my-3">
-              <h4>Cadastre um contato:</h4>
+              <h4>Edite o contato:</h4>
               <Form onSubmit={handleSubmit}>
                 <Form.Text className="text-muted">
-                  Insira os dados do contato abaixo:
+                  Edite os dados do contato abaixo:
                 </Form.Text>
                 <Form.Group className="mb-3">
                   <Form.Label>Nome</Form.Label>
                   <Form.Control
                     type="text"
                     id="first_name"
-                    value={first_name}
-                    onChange={(e) => setFirstName(e.target.value)}
+                    value={formData.first_name}
+                    onChange={(e) =>
+                      setFormData({ ...formData, first_name: e.target.value })
+                    }
                     required
                     placeholder="Nome"
                   />
@@ -74,8 +83,10 @@ export const Contact = () => {
                   <Form.Control
                     type="text"
                     id="last_name"
-                    value={last_name}
-                    onChange={(e) => setLastName(e.target.value)}
+                    value={formData.last_name}
+                    onChange={(e) =>
+                      setFormData({ ...formData, last_name: e.target.value })
+                    }
                     required
                     placeholder="Sobrenome"
                   />
@@ -86,8 +97,10 @@ export const Contact = () => {
                   <Form.Control
                     type="text"
                     id="telephone"
-                    value={telephone}
-                    onChange={(e) => setTelephone(e.target.value)}
+                    value={formData.telephone}
+                    onChange={(e) =>
+                      setFormData({ ...formData, telephone: e.target.value })
+                    }
                     required
                     placeholder="Telefone"
                   />
@@ -98,8 +111,10 @@ export const Contact = () => {
                   <Form.Control
                     type="date"
                     id="birthday"
-                    value={birthday}
-                    onChange={(e) => setBirthday(e.target.value)}
+                    value={new Date(formData.birthday).toISOString().slice(0, 10)}
+                    onChange={(e) =>
+                      setFormData({ ...formData, birthday: e.target.value })
+                    }
                     required
                     placeholder="Data de nascimento"
                   />
@@ -110,8 +125,10 @@ export const Contact = () => {
                   <Form.Control
                     type="text"
                     id="address"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
+                    value={formData.address}
+                    onChange={(e) =>
+                      setFormData({ ...formData, address: e.target.value })
+                    }
                     required
                     placeholder="Endereço"
                   />
@@ -122,8 +139,8 @@ export const Contact = () => {
                   <Form.Control
                     type="email"
                     id="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     required
                     placeholder="Email"
                   />
@@ -140,12 +157,12 @@ export const Contact = () => {
                   />
                 </Form.Group>
                 <p className="text-muted">
-                  Ao terminar de preencher o formulário clique em [Criar contato] para
-                  salvar o contato e se quiser voltar para agenda para exibir os contatos
-                  salvos clique em [Voltar para agenda].
+                  Ao terminar de editar clique em [Editar contato] para salvar e se quiser
+                  voltar para agenda para exibir os contatos salvos clique em [Voltar para
+                  agenda].
                 </p>
                 <Button variant="primary" type="submit" style={{ marginRight: '10px' }}>
-                  Criar contato
+                  Editar contato
                 </Button>
                 <Button variant="dark">
                   <Link to="/agenda" className="lnk">

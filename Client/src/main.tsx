@@ -9,6 +9,7 @@ import { ToastContainer } from 'react-toastify';
 import { About } from './components/About';
 import { Agenda } from './components/Agenda';
 import { Contact } from './components/Contact';
+import { EditContact } from './components/EditContact';
 import { Home } from './components/Home';
 import { Login } from './components/Login';
 import { Logout } from './components/Logout';
@@ -35,6 +36,7 @@ function App() {
           <Route path="/about" element={<About />}></Route>
           <Route path="/agenda" element={<Agenda />}></Route>
           <Route path="/contact" element={<Contact />}></Route>
+          <Route path="/edit/:id" element={<EditContact />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
           <Route path="/login" element={<Login onLogin={handleLogin} />}></Route>
           <Route path="/logout" element={<Logout onLogout={handleLogout} />}></Route>

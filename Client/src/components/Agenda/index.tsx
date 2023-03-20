@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 interface DataObject {
   id: number;
@@ -34,6 +34,35 @@ export const Agenda = () => {
     }
   };
 
+  const sortedContacts = [...data].sort((a, b) => {
+    // compare names in lowercase to ignore case sensitivity
+    const nameA = a.first_name.toLowerCase();
+    const nameB = b.first_name.toLowerCase();
+    if (nameA < nameB) {
+      return -1;
+    }
+    if (nameA > nameB) {
+      return 1;
+    }
+    return 0;
+  });
+
+  const navigate = useNavigate();
+
+  const handleEdit = async (id: number) => {
+    console.log(`esse é o id ${id}`);
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_REACT_API_URL}/contacts/${id}`,
+      );
+      const contact = response.data.data;
+      console.log(response.data.data);
+      navigate(`/edit/${id}`, { state: { contact } });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -56,12 +85,11 @@ export const Agenda = () => {
   return (
     <div className="container">
       <div className="row justify-content-center">
-        <div className="col-lg-8 my-3">
+        <div className="col-lg-9 my-3">
           <h1 className="text-center">Agenda</h1>
           <p className="text-center lead">Contatos abaixo</p>
           <div className="row">
             <div className="col my-3">
-              {/* <div className="alert alert-danger text-center">Deu erro</div> */}
               <div className="responsive-table">
                 <Table striped hover className="table my-3">
                   <thead>
@@ -73,10 +101,11 @@ export const Agenda = () => {
                       <th>Endereço</th>
                       <th>Email</th>
                       <th></th>
+                      <th></th>
                     </tr>
                   </thead>
                   <tbody>
-                    {data.map((item) => (
+                    {sortedContacts.map((item) => (
                       <tr key={item.id}>
                         <td>{item.first_name}</td>
                         <td>{item.last_name}</td>
@@ -88,6 +117,15 @@ export const Agenda = () => {
                         </td>
                         <td>{item.address}</td>
                         <td>{item.email}</td>
+                        <td>
+                          <Button
+                            variant="warning"
+                            size="sm"
+                            onClick={() => handleEdit(item.id)}
+                          >
+                            Editar
+                          </Button>
+                        </td>
                         <td>
                           <Button
                             variant="danger"
