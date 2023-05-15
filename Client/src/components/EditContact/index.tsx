@@ -108,9 +108,14 @@ export const EditContact = () => {
 
                 <Form.Group className="mb-3">
                   <Form.Label>Data de nascimento</Form.Label>
+                  <br />
+                  <Form.Text className="text-muted">
+                    Clique no calendario para editar a data
+                  </Form.Text>
                   <Form.Control
                     type="date"
                     id="birthday"
+                    onKeyDown={(e) => e.preventDefault()}
                     value={new Date(formData.birthday).toISOString().slice(0, 10)}
                     onChange={(e) =>
                       setFormData({ ...formData, birthday: e.target.value })
